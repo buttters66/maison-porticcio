@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, MapPin, Users, Bed } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface HeroSectionProps {
   onBookingClick: () => void;
@@ -26,6 +27,7 @@ const heroImages = [
 ];
 
 export function HeroSection({ onBookingClick }: HeroSectionProps) {
+  const { t, language } = useLanguage();
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -69,7 +71,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
           className="mt-6 md:mt-8 text-[clamp(1rem,2.5vw,1.5rem)] tracking-wide uppercase"
           style={{ fontWeight: 500 }}
         >
-          Vue mer • Golfe d'Ajaccio • Corse du Sud
+          {t("heroSubtitle")}
         </motion.p>
       </motion.div>
 
@@ -146,10 +148,14 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
               className="text-[clamp(1.25rem,3vw,2.5rem)] leading-tight"
               style={{ fontWeight: 800 }}
             >
-              Une expérience unique avec vue imprenable
+              {language === "fr" 
+                ? "Une expérience unique avec vue imprenable" 
+                : "A unique experience with breathtaking views"}
             </p>
             <p className="text-lg opacity-70 leading-relaxed">
-              Découvrez notre maison d'exception à Porticcio, alliant confort moderne et panorama époustouflant sur le golfe d'Ajaccio. À seulement 5 minutes de la plage.
+              {language === "fr"
+                ? "Découvrez notre maison d'exception à Porticcio, alliant confort moderne et panorama époustouflant sur le golfe d'Ajaccio. À seulement 5 minutes de la plage."
+                : "Discover our exceptional house in Porticcio, combining modern comfort and breathtaking views of the Gulf of Ajaccio. Just 5 minutes from the beach."}
             </p>
           </div>
           
@@ -162,7 +168,7 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
               className="text-base md:text-lg uppercase tracking-wider block"
               style={{ fontWeight: 800 }}
             >
-              Réserver maintenant
+              {t("bookNow")}
             </span>
           </button>
 
@@ -173,21 +179,21 @@ export function HeroSection({ onBookingClick }: HeroSectionProps) {
                 <Users className="w-5 h-5 text-[#FF6B35]" />
                 <p className="text-3xl md:text-4xl" style={{ fontWeight: 900 }}>5</p>
               </div>
-              <p className="text-sm uppercase opacity-60">Personnes</p>
+              <p className="text-sm uppercase opacity-60">{t("heroPersons")}</p>
             </div>
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center gap-2 mb-1">
                 <Bed className="w-5 h-5 text-[#FF6B35]" />
                 <p className="text-3xl md:text-4xl" style={{ fontWeight: 900 }}>2</p>
               </div>
-              <p className="text-sm uppercase opacity-60">Chambres</p>
+              <p className="text-sm uppercase opacity-60">{t("heroRooms")}</p>
             </div>
             <div className="flex flex-col items-center md:items-start">
               <div className="flex items-center gap-2 mb-1">
                 <MapPin className="w-5 h-5 text-[#FF6B35]" />
                 <p className="text-3xl md:text-4xl" style={{ fontWeight: 900 }}>5</p>
               </div>
-              <p className="text-sm uppercase opacity-60">Min plage</p>
+              <p className="text-sm uppercase opacity-60">{t("heroBeach")}</p>
             </div>
           </div>
         </motion.div>

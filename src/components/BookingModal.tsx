@@ -1,6 +1,7 @@
-import { X, Users, Info, Calendar, CheckCircle, Send, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, Users, Info, CheckCircle, Send, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -79,6 +80,7 @@ const getWeeksBetween = (start: Date, end: Date): number => {
 };
 
 export function BookingModal({ isOpen, onClose }: BookingModalProps) {
+  const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -92,7 +94,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     e.preventDefault();
     
     if (!selectedArrival || !selectedDeparture) {
-      setError("Veuillez sélectionner vos dates d'arrivée et de départ.");
+      setError(language === "fr" ? "Veuillez sélectionner vos dates d'arrivée et de départ." : "Please select your arrival and departure dates.");
       return;
     }
 
@@ -103,8 +105,8 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     const formData = new FormData(form);
     
     // Ajouter les dates sélectionnées
-    formData.set("arrival", selectedArrival.toLocaleDateString('fr-FR'));
-    formData.set("departure", selectedDeparture.toLocaleDateString('fr-FR'));
+    formData.set("arrival", selectedArrival.toLocaleDateString(language === "fr" ? 'fr-FR' : 'en-US'));
+    formData.set("departure", selectedDeparture.toLocaleDateString(language === "fr" ? 'fr-FR' : 'en-US'));
     formData.set("guests", guests.toString());
     formData.set("total", `${calculateTotal()}€`);
 
@@ -126,10 +128,10 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
           setSelectedDeparture(null);
         }, 3000);
       } else {
-        setError("Une erreur est survenue. Veuillez réessayer.");
+        setError(t("errorGeneric"));
       }
     } catch {
-      setError("Erreur de connexion. Veuillez réessayer.");
+      setError(t("errorConnection"));
     } finally {
       setIsSubmitting(false);
     }
@@ -209,7 +211,13 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     return days;
   };
 
-  const monthNames = ["", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+  const monthNamesFr = ["", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+  const monthNamesEn = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthNames = language === "fr" ? monthNamesFr : monthNamesEn;
+
+  const dayNamesFr = ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'];
+  const dayNamesEn = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  const dayNames = language === "fr" ? dayNamesFr : dayNamesEn;
 
   const prevMonth = () => {
     if (calendarMonth === 1) {
@@ -254,14 +262,14 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
             transition={{ type: "spring", duration: 0.5 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden w-full max-h-[95vh] flex flex-col">
+            <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl md:rounded-3xl overflow-hidden w-full max-w-5xl max-h-[95vh] flex flex-col">
               {/* Header */}
               <div className="relative p-4 md:p-6 border-b border-white/10 shrink-0">
                 <h2 className="text-xl md:text-2xl font-black tracking-tighter uppercase">
-                  Réserver votre séjour
+                  {t("bookingTitle")}
                 </h2>
                 <p className="text-xs md:text-sm opacity-60 mt-1">
-                  Sélectionnez vos samedis d'arrivée et de départ
+                  {t("bookingSubtitle")}
                 </p>
                 <button
                   onClick={onClose}
@@ -278,8 +286,12 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                     <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
                       <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2">Demande envoyée !</h3>
-                    <p className="text-white/60">Nous vous contacterons dans les 24h pour confirmer.</p>
+                    <h3 className="text-xl font-bold mb-2">
+                      {language === "fr" ? "Demande envoyée !" : "Request sent!"}
+                    </h3>
+                    <p className="text-white/60">
+                      {language === "fr" ? "Nous vous contacterons dans les 24h pour confirmer." : "We will contact you within 24h to confirm."}
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
@@ -313,22 +325,22 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                           {/* Légende */}
                           <div className="flex flex-wrap gap-3 mb-4 text-xs justify-center">
                             <span className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-[#FF6B35]"></span> Réservé
+                              <span className="w-4 h-4 rounded bg-[#FF6B35]"></span> {t("reserved")}
                             </span>
                             <span className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-yellow-500"></span> En attente
+                              <span className="w-4 h-4 rounded bg-yellow-500"></span> {language === "fr" ? "En attente" : "Pending"}
                             </span>
                             <span className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded bg-green-500"></span> Sélectionné
+                              <span className="w-4 h-4 rounded bg-green-500"></span> {t("selected")}
                             </span>
                             <span className="flex items-center gap-1.5">
-                              <span className="w-4 h-4 rounded border-2 border-white/40"></span> Samedi dispo
+                              <span className="w-4 h-4 rounded border-2 border-white/40"></span> {t("saturdayOnly")}
                             </span>
                           </div>
 
                           {/* Jours de la semaine */}
                           <div className="grid grid-cols-7 gap-0.5 mb-1">
-                            {['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'].map((day) => (
+                            {dayNames.map((day) => (
                               <div key={day} className="text-center text-[10px] opacity-50 py-1 font-semibold">
                                 {day}
                               </div>
@@ -369,35 +381,37 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl p-4 border border-white/10">
                           <h4 className="font-bold text-sm mb-3 flex items-center gap-2">
                             <Info className="w-4 h-4 text-[#FF6B35]" />
-                            Tarifs par semaine (samedi au samedi)
+                            {language === "fr" ? "Tarifs par semaine (samedi au samedi)" : "Weekly rates (Saturday to Saturday)"}
                           </h4>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-xs">
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">1er - 16 mars</p>
+                              <p className="opacity-60">{language === "fr" ? "1er - 16 mars" : "Mar 1-16"}</p>
                               <p className="font-bold text-[#FF6B35]">800€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">16 mars - fin juin</p>
+                              <p className="opacity-60">{language === "fr" ? "16 mars - fin juin" : "Mar 16 - Jun"}</p>
                               <p className="font-bold text-[#FF6B35]">900€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">Juillet</p>
+                              <p className="opacity-60">{language === "fr" ? "Juillet" : "July"}</p>
                               <p className="font-bold text-[#FF6B35]">1 200€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">Août (sauf dernière sem.)</p>
+                              <p className="opacity-60">{language === "fr" ? "Août (sauf dernière sem.)" : "Aug (exc. last week)"}</p>
                               <p className="font-bold text-[#FF6B35]">1 300€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">Dernière sem. août</p>
+                              <p className="opacity-60">{language === "fr" ? "Dernière sem. août" : "Last week Aug"}</p>
                               <p className="font-bold text-[#FF6B35]">1 000€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
-                              <p className="opacity-60">Sept - 15 oct</p>
+                              <p className="opacity-60">{language === "fr" ? "Sept - 15 oct" : "Sep - Oct 15"}</p>
                               <p className="font-bold text-[#FF6B35]">900€</p>
                             </div>
                           </div>
-                          <p className="text-xs opacity-50 mt-2">+ Ménage : 120€ • Acompte : 30%</p>
+                          <p className="text-xs opacity-50 mt-2">
+                            + {t("cleaning")} : 120€ • {t("deposit")} : 30%
+                          </p>
                         </div>
                       </div>
 
@@ -405,42 +419,44 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                       <div className="space-y-4">
                         {/* Récapitulatif sélection */}
                         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl p-4 border border-white/10">
-                          <h4 className="font-bold text-sm mb-3">Votre sélection</h4>
+                          <h4 className="font-bold text-sm mb-3">
+                            {language === "fr" ? "Votre sélection" : "Your selection"}
+                          </h4>
                           
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                              <span className="opacity-60">Arrivée</span>
+                              <span className="opacity-60">{t("arrival")}</span>
                               <span className="font-semibold">
-                                {selectedArrival ? selectedArrival.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }) : '—'}
+                                {selectedArrival ? selectedArrival.toLocaleDateString(language === "fr" ? 'fr-FR' : 'en-US', { weekday: 'short', day: 'numeric', month: 'short' }) : '—'}
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="opacity-60">Départ</span>
+                              <span className="opacity-60">{t("departure")}</span>
                               <span className="font-semibold">
-                                {selectedDeparture ? selectedDeparture.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }) : '—'}
+                                {selectedDeparture ? selectedDeparture.toLocaleDateString(language === "fr" ? 'fr-FR' : 'en-US', { weekday: 'short', day: 'numeric', month: 'short' }) : '—'}
                               </span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="opacity-60">Durée</span>
-                              <span className="font-semibold">{weeks > 0 ? `${weeks} semaine${weeks > 1 ? 's' : ''}` : '—'}</span>
+                              <span className="opacity-60">{t("duration")}</span>
+                              <span className="font-semibold">{weeks > 0 ? `${weeks} ${weeks > 1 ? t("weeks") : t("week")}` : '—'}</span>
                             </div>
                           </div>
 
                           {total > 0 && (
                             <div className="mt-3 pt-3 border-t border-white/10">
                               <div className="flex justify-between text-sm">
-                                <span className="opacity-60">Séjour</span>
+                                <span className="opacity-60">{language === "fr" ? "Séjour" : "Stay"}</span>
                                 <span>{total - 120}€</span>
                               </div>
                               <div className="flex justify-between text-sm">
-                                <span className="opacity-60">Ménage</span>
+                                <span className="opacity-60">{t("cleaning")}</span>
                                 <span>120€</span>
                               </div>
                               <div className="flex justify-between font-bold text-lg mt-2">
-                                <span>Total</span>
+                                <span>{t("total")}</span>
                                 <span className="text-[#FF6B35]">{total}€</span>
                               </div>
-                              <p className="text-xs opacity-50 mt-1">Acompte (30%) : {deposit}€</p>
+                              <p className="text-xs opacity-50 mt-1">{t("deposit")} : {deposit}€</p>
                             </div>
                           )}
                         </div>
@@ -449,7 +465,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl p-4 border border-white/10">
                           <label className="block text-xs uppercase opacity-60 mb-2 font-semibold">
                             <Users className="w-3 h-3 inline mr-1" />
-                            Personnes
+                            {language === "fr" ? "Personnes" : "Guests"}
                           </label>
                           <div className="flex items-center justify-between">
                             <button
@@ -468,7 +484,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                               +
                             </button>
                           </div>
-                          <p className="text-xs opacity-50 text-center mt-1">Max. 5 personnes</p>
+                          <p className="text-xs opacity-50 text-center mt-1">Max. 5 {language === "fr" ? "personnes" : "guests"}</p>
                         </div>
 
                         {/* Coordonnées */}
@@ -478,27 +494,27 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             name="name"
                             required
                             className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors text-sm"
-                            placeholder="Nom complet"
+                            placeholder={t("fullName")}
                           />
                           <input
                             type="email"
                             name="email"
                             required
                             className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors text-sm"
-                            placeholder="Email"
+                            placeholder={t("email")}
                           />
                           <input
                             type="tel"
                             name="phone"
                             required
                             className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors text-sm"
-                            placeholder="Téléphone"
+                            placeholder={t("phone")}
                           />
                           <textarea
                             name="message"
                             rows={2}
                             className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors resize-none text-sm"
-                            placeholder="Message (optionnel)"
+                            placeholder={language === "fr" ? "Message (optionnel)" : "Message (optional)"}
                           />
                         </div>
 
@@ -512,7 +528,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                           className="w-full bg-gradient-to-r from-[#FF6B35] to-[#FF8E53] hover:from-[#FF8E53] hover:to-[#FFB03B] text-white px-6 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <Send className="w-5 h-5" />
-                          {isSubmitting ? "Envoi..." : "Envoyer ma demande"}
+                          {isSubmitting ? (language === "fr" ? "Envoi..." : "Sending...") : (language === "fr" ? "Envoyer ma demande" : "Send my request")}
                         </button>
                       </div>
                     </div>

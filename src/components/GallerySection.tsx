@@ -1,91 +1,93 @@
 import { ScrollAnimationWrapper } from "./ScrollAnimationWrapper";
 import { useState } from "react";
 import { ImageLightbox } from "./ImageLightbox";
-
-const galleryImages = [
-  {
-    src: "/img/Pub Porticcio MArs 2025/Sejour.jpeg",
-    alt: "Salon",
-    category: "Séjour",
-    description: "Séjour lumineux avec vue sur la mer et le golfe d'Ajaccio"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Sejour2.jpeg",
-    alt: "Salon vue alternative",
-    category: "Séjour",
-    description: "Autre vue du séjour spacieux et confortable"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Sejour3.jpeg",
-    alt: "Espace TV",
-    category: "Séjour",
-    description: "Coin TV et détente avec Smart TV"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Ch1.jpeg",
-    alt: "Chambre 1",
-    category: "Chambres",
-    description: "Chambre principale avec literie de qualité"
-  },
-  {
-    src: "/img/chambre2.png",
-    alt: "Chambre 2",
-    category: "Chambres",
-    description: "Deuxième chambre avec accès direct au jardin"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Ch1 Et.jpeg",
-    alt: "Chambre étage",
-    category: "Chambres",
-    description: "Chambre à l'étage avec accès terrasse"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/SdB Etage.jpeg",
-    alt: "Salle de bain",
-    category: "Salles de bains",
-    description: "Salle de bain moderne avec douche à l'italienne"
-  },
-  {
-    src: "/img/jacuzzi.png",
-    alt: "Jacuzzi",
-    category: "Extérieur",
-    description: "Jacuzzi avec vue panoramique sur le golfe d'Ajaccio"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Terrasse T3.jpeg",
-    alt: "Terrasse principale",
-    category: "Extérieur",
-    description: "Grande terrasse avec vue panoramique sur le golfe"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Terrasse .jpeg",
-    alt: "Terrasse",
-    category: "Extérieur",
-    description: "Espace repas extérieur avec mobilier de jardin"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Jardin.JPG",
-    alt: "Jardin",
-    category: "Extérieur",
-    description: "Jardin méditerranéen verdoyant"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Coucher de soleil.jpeg",
-    alt: "Coucher de soleil",
-    category: "Vues",
-    description: "Magnifique coucher de soleil sur le golfe d'Ajaccio"
-  },
-  {
-    src: "/img/Pub Porticcio MArs 2025/Vue facade maison.jpeg",
-    alt: "Façade",
-    category: "Extérieur",
-    description: "Vue de la façade de la maison"
-  },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function GallerySection() {
+  const { t, language } = useLanguage();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const galleryImages = [
+    {
+      src: "/img/Pub Porticcio MArs 2025/Sejour.jpeg",
+      alt: language === "fr" ? "Salon" : "Living Room",
+      category: language === "fr" ? "Séjour" : "Living",
+      description: language === "fr" ? "Séjour lumineux avec vue sur la mer et le golfe d'Ajaccio" : "Bright living room with sea view"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Sejour2.jpeg",
+      alt: language === "fr" ? "Salon vue alternative" : "Living Room Alt View",
+      category: language === "fr" ? "Séjour" : "Living",
+      description: language === "fr" ? "Autre vue du séjour spacieux et confortable" : "Another view of the spacious living room"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Sejour3.jpeg",
+      alt: language === "fr" ? "Espace TV" : "TV Area",
+      category: language === "fr" ? "Séjour" : "Living",
+      description: language === "fr" ? "Coin TV et détente avec Smart TV" : "TV corner with Smart TV"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Ch1.jpeg",
+      alt: language === "fr" ? "Chambre 1" : "Bedroom 1",
+      category: language === "fr" ? "Chambres" : "Bedrooms",
+      description: language === "fr" ? "Chambre principale avec literie de qualité" : "Master bedroom with quality bedding"
+    },
+    {
+      src: "/img/chambre2.png",
+      alt: language === "fr" ? "Chambre 2" : "Bedroom 2",
+      category: language === "fr" ? "Chambres" : "Bedrooms",
+      description: language === "fr" ? "Deuxième chambre avec accès direct au jardin" : "Second bedroom with garden access"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Ch1 Et.jpeg",
+      alt: language === "fr" ? "Chambre étage" : "Upstairs Bedroom",
+      category: language === "fr" ? "Chambres" : "Bedrooms",
+      description: language === "fr" ? "Chambre à l'étage avec accès terrasse" : "Upstairs bedroom with terrace access"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/SdB Etage.jpeg",
+      alt: language === "fr" ? "Salle de bain" : "Bathroom",
+      category: language === "fr" ? "Salles de bains" : "Bathrooms",
+      description: language === "fr" ? "Salle de bain moderne avec douche à l'italienne" : "Modern bathroom with Italian shower"
+    },
+    {
+      src: "/img/jacuzzi.png",
+      alt: "Jacuzzi",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Jacuzzi avec vue panoramique sur le golfe d'Ajaccio" : "Jacuzzi with panoramic view"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Terrasse T3.jpeg",
+      alt: language === "fr" ? "Terrasse principale" : "Main Terrace",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Grande terrasse avec vue panoramique sur le golfe" : "Large terrace with panoramic view"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Terrasse .jpeg",
+      alt: language === "fr" ? "Terrasse" : "Terrace",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Espace repas extérieur avec mobilier de jardin" : "Outdoor dining area"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Jardin.JPG",
+      alt: language === "fr" ? "Jardin" : "Garden",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Jardin méditerranéen verdoyant" : "Mediterranean garden"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Coucher de soleil.jpeg",
+      alt: language === "fr" ? "Coucher de soleil" : "Sunset",
+      category: language === "fr" ? "Vues" : "Views",
+      description: language === "fr" ? "Magnifique coucher de soleil sur le golfe d'Ajaccio" : "Beautiful sunset over the Gulf of Ajaccio"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Vue facade maison.jpeg",
+      alt: language === "fr" ? "Façade" : "Facade",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Vue de la façade de la maison" : "House facade view"
+    },
+  ];
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
@@ -102,10 +104,10 @@ export function GallerySection() {
               className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.9] tracking-tighter uppercase"
               style={{ fontWeight: 900 }}
             >
-              Galerie
+              {t("galleryTitle")}
             </h2>
             <p className="text-lg opacity-60 max-w-md">
-              Découvrez chaque espace de cette maison avec vue imprenable
+              {t("gallerySubtitle")}
             </p>
           </div>
         </ScrollAnimationWrapper>
@@ -134,7 +136,9 @@ export function GallerySection() {
                       {image.category}
                     </span>
                     <p className="text-white text-sm" style={{ fontWeight: 700 }}>{image.alt}</p>
-                    <p className="text-white/60 text-xs mt-1">Cliquez pour agrandir</p>
+                    <p className="text-white/60 text-xs mt-1">
+                      {language === "fr" ? "Cliquez pour agrandir" : "Click to enlarge"}
+                    </p>
                   </div>
                 </div>
               </div>

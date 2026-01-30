@@ -1,14 +1,17 @@
 import { ScrollAnimationWrapper } from "./ScrollAnimationWrapper";
 import { MapPin, Plane, UtensilsCrossed, ShoppingBag, Waves } from "lucide-react";
-
-const proximityItems = [
-  { icon: Waves, label: "Plage", distance: "5 min à pied", color: "#4A9FFF" },
-  { icon: UtensilsCrossed, label: "Restaurants", distance: "7 min à pied", color: "#FF6B35" },
-  { icon: ShoppingBag, label: "Commerces", distance: "10 min à pied", color: "#50C878" },
-  { icon: Plane, label: "Aéroport d'Ajaccio", distance: "20 min en voiture", color: "#9B59B6" },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function LocationSection() {
+  const { t, language } = useLanguage();
+
+  const proximityItems = [
+    { icon: Waves, label: t("beachTime"), distance: language === "fr" ? "5 min à pied" : "5 min walk", color: "#4A9FFF" },
+    { icon: UtensilsCrossed, label: t("restaurants"), distance: language === "fr" ? "7 min à pied" : "7 min walk", color: "#FF6B35" },
+    { icon: ShoppingBag, label: t("shops"), distance: language === "fr" ? "10 min à pied" : "10 min walk", color: "#50C878" },
+    { icon: Plane, label: t("airport"), distance: language === "fr" ? "20 min en voiture" : "20 min by car", color: "#9B59B6" },
+  ];
+
   return (
     <section className="py-20 px-4 md:px-8 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto">
@@ -18,7 +21,7 @@ export function LocationSection() {
             className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.9] tracking-tighter uppercase mb-8 md:mb-12"
             style={{ fontWeight: 900 }}
           >
-            Localisation
+            {t("locationTitle")}
           </h2>
         </ScrollAnimationWrapper>
 
@@ -34,7 +37,7 @@ export function LocationSection() {
                   </div>
                   <div>
                     <h3 className="text-xl md:text-2xl mb-2" style={{ fontWeight: 800 }}>
-                      Maison à Porticcio
+                      {language === "fr" ? "Maison à Porticcio" : "House in Porticcio"}
                     </h3>
                     <p className="text-white/60">
                       13 Allée des Hirondelles<br />
@@ -45,7 +48,9 @@ export function LocationSection() {
                 </div>
 
                 <p className="text-white/70 leading-relaxed">
-                  Située dans un quartier résidentiel calme de Porticcio, notre maison vous offre un cadre idyllique pour vos vacances en Corse. Profitez de la proximité immédiate des plages et du centre-ville tout en restant au calme.
+                  {language === "fr" 
+                    ? "Située dans un quartier résidentiel calme de Porticcio, notre maison vous offre un cadre idyllique pour vos vacances en Corse. Profitez de la proximité immédiate des plages et du centre-ville tout en restant au calme."
+                    : "Located in a quiet residential area of Porticcio, our house offers you an idyllic setting for your holidays in Corsica. Enjoy the immediate proximity to beaches and the town center while staying in a peaceful environment."}
                 </p>
               </div>
 
@@ -81,7 +86,7 @@ export function LocationSection() {
                 allowFullScreen
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Localisation de la Maison Porticcio"
+                title={language === "fr" ? "Localisation de la Maison Porticcio" : "Maison Porticcio Location"}
               ></iframe>
             </div>
           </ScrollAnimationWrapper>

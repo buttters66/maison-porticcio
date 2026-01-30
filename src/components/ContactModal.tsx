@@ -1,6 +1,7 @@
 import { X, Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -37,10 +39,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           onClose();
         }, 3000);
       } else {
-        setError("Une erreur est survenue. Veuillez réessayer.");
+        setError(t("errorGeneric"));
       }
     } catch {
-      setError("Erreur de connexion. Veuillez réessayer.");
+      setError(t("errorConnection"));
     } finally {
       setIsSubmitting(false);
     }
@@ -71,10 +73,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               {/* Header */}
               <div className="relative p-6 border-b border-white/10">
                 <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase">
-                  Contactez-nous
+                  {t("contactTitle")}
                 </h2>
                 <p className="text-sm opacity-60 mt-2">
-                  Une question sur la maison ? Nous sommes là pour vous aider.
+                  {t("contactSubtitle")}
                 </p>
                 <button
                   onClick={onClose}
@@ -91,8 +93,8 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
                       <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2">Message envoyé !</h3>
-                    <p className="text-white/60">Nous vous répondrons dans les plus brefs délais.</p>
+                    <h3 className="text-xl font-bold mb-2">{t("messageSent")}</h3>
+                    <p className="text-white/60">{t("messageSuccess")}</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -102,7 +104,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         <div className="bg-[#FF6B35]/10 w-10 h-10 rounded-lg flex items-center justify-center mb-3">
                           <Mail className="w-5 h-5 text-[#FF6B35]" />
                         </div>
-                        <p className="text-xs uppercase opacity-60 mb-1">Email</p>
+                        <p className="text-xs uppercase opacity-60 mb-1">{t("email")}</p>
                         <p className="font-bold">casa.abid@gmail.com</p>
                       </div>
 
@@ -110,15 +112,17 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         <div className="bg-[#4A9FFF]/10 w-10 h-10 rounded-lg flex items-center justify-center mb-3">
                           <Phone className="w-5 h-5 text-[#4A9FFF]" />
                         </div>
-                        <p className="text-xs uppercase opacity-60 mb-1">Téléphone</p>
-                        <p className="font-bold">+33 6 XX XX XX XX</p>
+                        <p className="text-xs uppercase opacity-60 mb-1">{t("phone")}</p>
+                        <a href="tel:+33686949778" className="font-bold hover:text-[#4A9FFF] transition-colors">
+                          +33 6 86 94 97 78
+                        </a>
                       </div>
 
                       <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-xl p-5 border border-white/5">
                         <div className="bg-[#50C878]/10 w-10 h-10 rounded-lg flex items-center justify-center mb-3">
                           <MapPin className="w-5 h-5 text-[#50C878]" />
                         </div>
-                        <p className="text-xs uppercase opacity-60 mb-1">Adresse</p>
+                        <p className="text-xs uppercase opacity-60 mb-1">{t("address")}</p>
                         <p className="font-bold">
                           13 Allée des Hirondelles<br />
                           20166 Porticcio
@@ -132,7 +136,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       
                       <div>
                         <label className="block text-xs uppercase opacity-60 mb-2 font-semibold">
-                          Nom complet
+                          {t("fullName")}
                         </label>
                         <input
                           type="text"
@@ -145,7 +149,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
                       <div>
                         <label className="block text-xs uppercase opacity-60 mb-2 font-semibold">
-                          Email
+                          {t("email")}
                         </label>
                         <input
                           type="email"
@@ -158,26 +162,26 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
                       <div>
                         <label className="block text-xs uppercase opacity-60 mb-2 font-semibold">
-                          Téléphone
+                          {t("phone")}
                         </label>
                         <input
                           type="tel"
                           name="phone"
                           className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors"
-                          placeholder="+33 6 XX XX XX XX"
+                          placeholder="+33 6 86 94 97 78"
                         />
                       </div>
 
                       <div>
                         <label className="block text-xs uppercase opacity-60 mb-2 font-semibold">
-                          Message
+                          {t("yourMessage")}
                         </label>
                         <textarea
                           name="message"
                           required
                           rows={4}
                           className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-[#FF6B35] focus:outline-none transition-colors resize-none"
-                          placeholder="Votre message..."
+                          placeholder={t("messagePlaceholder")}
                         />
                       </div>
 
@@ -191,7 +195,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         className="w-full bg-gradient-to-r from-[#FF6B35] to-[#FF8E53] hover:from-[#FF8E53] hover:to-[#FFB03B] text-white px-6 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Send className="w-5 h-5" />
-                        {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                        {isSubmitting ? t("sending") : t("sendMessage")}
                       </button>
                     </form>
                   </div>

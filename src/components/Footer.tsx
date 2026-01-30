@@ -1,6 +1,9 @@
 import { MapPin, Mail, Phone } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="py-16 px-4 md:px-8 border-t border-white/10">
       <div className="max-w-7xl mx-auto">
@@ -15,13 +18,13 @@ export function Footer() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8E53]"> Porticcio</span>
             </h3>
             <p className="text-white/60 leading-relaxed">
-              Une maison d'exception avec vue imprenable sur le golfe d'Ajaccio. Votre havre de paix en Corse du Sud.
+              {t("footerDesc")}
             </p>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg uppercase tracking-wider mb-4" style={{ fontWeight: 800 }}>Contact</h4>
+            <h4 className="text-lg uppercase tracking-wider mb-4" style={{ fontWeight: 800 }}>{t("contact")}</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-white/60">
                 <MapPin className="w-4 h-4 text-[#FF6B35]" />
@@ -35,8 +38,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3 text-white/60">
                 <Phone className="w-4 h-4 text-[#FF6B35]" />
-                <a href="tel:+33600000000" className="hover:text-white transition-colors">
-                  +33 6 XX XX XX XX
+                <a href="tel:+33686949778" className="hover:text-white transition-colors">
+                  +33 6 86 94 97 78
                 </a>
               </li>
             </ul>
@@ -44,13 +47,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg uppercase tracking-wider mb-4" style={{ fontWeight: 800 }}>Infos pratiques</h4>
+            <h4 className="text-lg uppercase tracking-wider mb-4" style={{ fontWeight: 800 }}>{t("practicalInfo")}</h4>
             <ul className="space-y-2 text-white/60">
-              <li>• Arrivée à partir de 16h</li>
-              <li>• Départ avant 10h</li>
-              <li>• Location samedi à samedi</li>
-              <li>• Animaux non acceptés</li>
-              <li>• Non fumeur</li>
+              <li>• {t("arrivalTime")}</li>
+              <li>• {t("departureTime")}</li>
+              <li>• {t("satToSat")}</li>
+              <li>• {t("noPets")}</li>
+              <li>• {t("noSmoking")}</li>
             </ul>
           </div>
         </div>
@@ -58,7 +61,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/40 text-sm">
-            © {new Date().getFullYear()} Maison Porticcio. Tous droits réservés.
+            © {new Date().getFullYear()} Maison Porticcio. {t("allRights")}
           </p>
           <p className="text-white/40 text-sm">
             Corse du Sud • France

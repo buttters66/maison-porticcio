@@ -1,9 +1,21 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function MarqueeSection() {
-  const items = ["VUE MER", "5 MIN PLAGE", "PORTICCIO", "JACUZZI", "GOLFE D'AJACCIO", "CORSE DU SUD", "2 CHAMBRES", "TERRASSE"];
+  const { t } = useLanguage();
+  
+  const items = [
+    t("seaView"), 
+    "5 MIN PLAGE", 
+    "PORTICCIO", 
+    t("jacuzziMq"), 
+    t("gulf"), 
+    t("corsica"), 
+    t("roomsMq"), 
+    t("terraceMq")
+  ];
   
   return (
     <div className="py-8 border-y border-white/10 overflow-hidden bg-[#0a0a0a]">

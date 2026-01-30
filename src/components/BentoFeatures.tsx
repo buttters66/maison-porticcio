@@ -1,20 +1,23 @@
 import { Wifi, Car, Waves, UtensilsCrossed, Wind, Home, Snowflake, Tv, Shirt, Sparkles } from "lucide-react";
 import { ScrollAnimationWrapper } from "./ScrollAnimationWrapper";
-
-const features = [
-  { icon: Wifi, label: "WiFi Gratuit", description: "Haut débit", color: "#FF6B35", gradient: "from-[#FF6B35] to-[#FF8E53]" },
-  { icon: Snowflake, label: "Climatisation", description: "Réversible", color: "#4A9FFF", gradient: "from-[#4A9FFF] to-[#6BB6FF]" },
-  { icon: Sparkles, label: "Jacuzzi", description: "Vue mer", color: "#9B59B6", gradient: "from-[#9B59B6] to-[#BB79D6]" },
-  { icon: Car, label: "Parking privé", description: "Gratuit", color: "#FFB03B", gradient: "from-[#FFB03B] to-[#FFC86B]" },
-  { icon: Waves, label: "Plage 5 min", description: "À pied", color: "#50C878", gradient: "from-[#50C878] to-[#70E898]" },
-  { icon: UtensilsCrossed, label: "Cuisine équipée", description: "Tout inclus", color: "#E74C3C", gradient: "from-[#E74C3C] to-[#FF6B6B]" },
-  { icon: Tv, label: "TV Smart", description: "Streaming", color: "#3498DB", gradient: "from-[#3498DB] to-[#54B8FB]" },
-  { icon: Wind, label: "Terrasse", description: "Vue panoramique", color: "#1ABC9C", gradient: "from-[#1ABC9C] to-[#3DDCBC]" },
-  { icon: Home, label: "2 chambres", description: "5 personnes", color: "#F39C12", gradient: "from-[#F39C12] to-[#FFB732]" },
-  { icon: Shirt, label: "Lave-linge", description: "Disponible", color: "#F1C40F", gradient: "from-[#F1C40F] to-[#FFE066]" },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function BentoFeatures() {
+  const { t, language } = useLanguage();
+
+  const features = [
+    { icon: Wifi, label: t("wifi"), description: t("wifiDesc"), color: "#FF6B35", gradient: "from-[#FF6B35] to-[#FF8E53]" },
+    { icon: Snowflake, label: t("aircon"), description: t("airconDesc"), color: "#4A9FFF", gradient: "from-[#4A9FFF] to-[#6BB6FF]" },
+    { icon: Sparkles, label: t("jacuzzi"), description: t("jacuzziDesc"), color: "#9B59B6", gradient: "from-[#9B59B6] to-[#BB79D6]" },
+    { icon: Car, label: t("parking"), description: language === "fr" ? "Gratuit" : "Free", color: "#FFB03B", gradient: "from-[#FFB03B] to-[#FFC86B]" },
+    { icon: Waves, label: t("beach"), description: t("beachDesc"), color: "#50C878", gradient: "from-[#50C878] to-[#70E898]" },
+    { icon: UtensilsCrossed, label: t("kitchen"), description: t("kitchenDesc"), color: "#E74C3C", gradient: "from-[#E74C3C] to-[#FF6B6B]" },
+    { icon: Tv, label: t("tv"), description: t("tvDesc"), color: "#3498DB", gradient: "from-[#3498DB] to-[#54B8FB]" },
+    { icon: Wind, label: t("terrace"), description: t("terraceDesc"), color: "#1ABC9C", gradient: "from-[#1ABC9C] to-[#3DDCBC]" },
+    { icon: Home, label: t("rooms"), description: t("roomsDesc"), color: "#F39C12", gradient: "from-[#F39C12] to-[#FFB732]" },
+    { icon: Shirt, label: t("washing"), description: t("washingDesc"), color: "#F1C40F", gradient: "from-[#F1C40F] to-[#FFE066]" },
+  ];
+
   return (
     <section className="py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -24,7 +27,7 @@ export function BentoFeatures() {
             className="text-[clamp(2.5rem,8vw,6rem)] leading-[0.9] tracking-tighter uppercase mb-8 md:mb-12"
             style={{ fontWeight: 900 }}
           >
-            Équipements
+            {t("featuresTitle")}
           </h2>
         </ScrollAnimationWrapper>
 
@@ -51,11 +54,13 @@ export function BentoFeatures() {
             <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-12">
               <div className="max-w-2xl">
                 <div className="inline-block bg-[#FF6B35]/20 backdrop-blur-sm border border-[#FF6B35]/30 px-2.5 py-1 md:px-4 md:py-1.5 rounded-full mb-2 md:mb-4">
-                  <p className="text-[#FF6B35] text-[9px] md:text-xs uppercase tracking-wider" style={{ fontWeight: 800 }}>Vue mer exceptionnelle</p>
+                  <p className="text-[#FF6B35] text-[9px] md:text-xs uppercase tracking-wider" style={{ fontWeight: 800 }}>
+                    {language === "fr" ? "Vue mer exceptionnelle" : "Exceptional sea view"}
+                  </p>
                 </div>
                 
                 <h3 className="text-2xl md:text-6xl uppercase tracking-tight mb-2 md:mb-4" style={{ fontWeight: 900 }}>
-                  Maison vue mer
+                  {language === "fr" ? "Maison vue mer" : "Sea view house"}
                 </h3>
                 
                 <p className="text-sm md:text-2xl opacity-90 mb-3 md:mb-6">Porticcio, Corse du Sud</p>
@@ -64,9 +69,9 @@ export function BentoFeatures() {
                 <div className="grid grid-cols-4 gap-1.5 md:flex md:flex-wrap md:gap-4">
                   {[
                     { value: "T3", label: "Type" },
-                    { value: "2", label: "Chambres" },
-                    { value: "5", label: "Pers." },
-                    { value: "5min", label: "Plage" },
+                    { value: "2", label: language === "fr" ? "Chambres" : "Rooms" },
+                    { value: "5", label: language === "fr" ? "Pers." : "Guests" },
+                    { value: "5min", label: language === "fr" ? "Plage" : "Beach" },
                   ].map((stat, i) => (
                     <div key={i} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-lg md:rounded-xl px-1.5 py-1.5 md:px-4 md:py-2.5">
                       <p className="text-sm md:text-2xl text-[#FF6B35] leading-tight" style={{ fontWeight: 900 }}>{stat.value}</p>

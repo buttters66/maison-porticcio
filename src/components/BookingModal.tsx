@@ -14,7 +14,11 @@ const CLEANING_FEE = 80;
 // MODIFIEZ ICI pour ajouter vos réservations
 // Exemple : { start: "2025-07-12", end: "2025-07-19", status: "confirmed" }
 const RESERVED_DATES: { start: string; end: string; status: string }[] = [
-  // Ajoutez vos réservations ici quand vous en aurez
+  { start: "2026-05-05", end: "2026-05-10", status: "confirmed" },
+  { start: "2026-06-02", end: "2026-06-24", status: "confirmed" },
+  { start: "2026-06-29", end: "2026-07-08", status: "confirmed" },
+  { start: "2026-07-31", end: "2026-08-16", status: "confirmed" },
+  { start: "2026-09-04", end: "2026-10-05", status: "confirmed" },
 ];
 
 // Vérifier si une date est réservée

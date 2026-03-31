@@ -54,7 +54,7 @@ const getPriceForDate = (date: Date): { price: number; label: string } => {
   
   // Juillet (mois 6)
   if (month === 6) {
-    return { price: 1100, label: "Haute saison" };
+    return { price: 1200, label: "Haute saison" };
   }
   
   // Août (mois 7)
@@ -396,7 +396,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                               <p className="opacity-60">{language === "fr" ? "Juillet" : "July"}</p>
-                              <p className="font-bold text-[#FF6B35]">1 100€</p>
+                              <p className="font-bold text-[#FF6B35]">1 200€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                               <p className="opacity-60">{language === "fr" ? "Août (sauf dernière sem.)" : "Aug (exc. last week)"}</p>

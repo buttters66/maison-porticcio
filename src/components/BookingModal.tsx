@@ -8,6 +8,8 @@ interface BookingModalProps {
   onClose: () => void;
 }
 
+const CLEANING_FEE = 80;
+
 // Dates déjà réservées (format: "YYYY-MM-DD")
 // MODIFIEZ ICI pour ajouter vos réservations
 // Exemple : { start: "2025-07-12", end: "2025-07-19", status: "confirmed" }
@@ -52,7 +54,7 @@ const getPriceForDate = (date: Date): { price: number; label: string } => {
   
   // Juillet (mois 6)
   if (month === 6) {
-    return { price: 1200, label: "Haute saison" };
+    return { price: 1100, label: "Haute saison" };
   }
   
   // Août (mois 7)
@@ -153,7 +155,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     }
     
     // Ajouter les frais de ménage
-    total += 120;
+    total += CLEANING_FEE;
     
     return total;
   };
@@ -394,7 +396,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                               <p className="opacity-60">{language === "fr" ? "Juillet" : "July"}</p>
-                              <p className="font-bold text-[#FF6B35]">1 200€</p>
+                              <p className="font-bold text-[#FF6B35]">1 100€</p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                               <p className="opacity-60">{language === "fr" ? "Août (sauf dernière sem.)" : "Aug (exc. last week)"}</p>
@@ -410,7 +412,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             </div>
                           </div>
                           <p className="text-xs opacity-50 mt-2">
-                            + {t("cleaning")} : 120€ • {t("deposit")} : 30%
+                            + {t("cleaning")} : {CLEANING_FEE}€ • {t("deposit")} : 30%
                           </p>
                         </div>
                       </div>
@@ -446,11 +448,11 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                             <div className="mt-3 pt-3 border-t border-white/10">
                               <div className="flex justify-between text-sm">
                                 <span className="opacity-60">{language === "fr" ? "Séjour" : "Stay"}</span>
-                                <span>{total - 120}€</span>
+                                <span>{total - CLEANING_FEE}€</span>
                               </div>
                               <div className="flex justify-between text-sm">
                                 <span className="opacity-60">{t("cleaning")}</span>
-                                <span>120€</span>
+                                <span>{CLEANING_FEE}€</span>
                               </div>
                               <div className="flex justify-between font-bold text-lg mt-2">
                                 <span>{t("total")}</span>

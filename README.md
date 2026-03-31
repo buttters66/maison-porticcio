@@ -68,6 +68,6 @@ npm run build
 ## 💰 Tarifs
 
 - **Basse saison** (Mars-Juin, Sept-Oct) : 900€/semaine
-- **Moyenne saison** (Juillet) : 1200€/semaine
+- **Moyenne saison** (Juillet) : 1100€/semaine
 - **Haute saison** (Août) : 1300€/semaine
-- **Frais de ménage** : 120€
+- **Frais de ménage** : 80€

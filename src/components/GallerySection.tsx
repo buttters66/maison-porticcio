@@ -10,6 +10,18 @@ export function GallerySection() {
 
   const galleryImages = [
     {
+      src: "/img/Pub Porticcio MArs 2025/Coucher de soleil.jpeg",
+      alt: language === "fr" ? "Coucher de soleil" : "Sunset",
+      category: language === "fr" ? "Vues" : "Views",
+      description: language === "fr" ? "Magnifique coucher de soleil sur le golfe d'Ajaccio" : "Beautiful sunset over the Gulf of Ajaccio"
+    },
+    {
+      src: "/img/Pub Porticcio MArs 2025/Terrasse T3.jpeg",
+      alt: language === "fr" ? "Terrasse principale" : "Main Terrace",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Grande terrasse avec vue panoramique sur le golfe" : "Large terrace with panoramic view"
+    },
+    {
       src: "/img/Pub Porticcio MArs 2025/Sejour.jpeg",
       alt: language === "fr" ? "Salon" : "Living Room",
       category: language === "fr" ? "Séjour" : "Living",
@@ -46,6 +58,12 @@ export function GallerySection() {
       description: language === "fr" ? "Chambre à l'étage avec accès terrasse" : "Upstairs bedroom with terrace access"
     },
     {
+      src: "/img/chambre_etage2.png",
+      alt: language === "fr" ? "Chambre étage (nouvelle vue)" : "Upstairs Bedroom (new view)",
+      category: language === "fr" ? "Chambres" : "Bedrooms",
+      description: language === "fr" ? "Nouvelle photo de la chambre à l'étage avec éclairage chaleureux" : "New upstairs bedroom photo with warm lighting"
+    },
+    {
       src: "/img/Pub Porticcio MArs 2025/SdB Etage.jpeg",
       alt: language === "fr" ? "Salle de bain" : "Bathroom",
       category: language === "fr" ? "Salles de bains" : "Bathrooms",
@@ -58,16 +76,16 @@ export function GallerySection() {
       description: language === "fr" ? "Jacuzzi avec vue panoramique sur le golfe d'Ajaccio" : "Jacuzzi with panoramic view"
     },
     {
-      src: "/img/Pub Porticcio MArs 2025/Terrasse T3.jpeg",
-      alt: language === "fr" ? "Terrasse principale" : "Main Terrace",
-      category: language === "fr" ? "Extérieur" : "Outdoor",
-      description: language === "fr" ? "Grande terrasse avec vue panoramique sur le golfe" : "Large terrace with panoramic view"
-    },
-    {
       src: "/img/Pub Porticcio MArs 2025/Terrasse .jpeg",
       alt: language === "fr" ? "Terrasse" : "Terrace",
       category: language === "fr" ? "Extérieur" : "Outdoor",
       description: language === "fr" ? "Espace repas extérieur avec mobilier de jardin" : "Outdoor dining area"
+    },
+    {
+      src: "/img/terrasse_exterieure.png",
+      alt: language === "fr" ? "Terrasse sous les arbres" : "Terrace Under Trees",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Grande table extérieure ombragée, idéale pour les repas d'été" : "Shaded outdoor dining area, perfect for summer meals"
     },
     {
       src: "/img/Pub Porticcio MArs 2025/Jardin.JPG",
@@ -76,16 +94,34 @@ export function GallerySection() {
       description: language === "fr" ? "Jardin méditerranéen verdoyant" : "Mediterranean garden"
     },
     {
-      src: "/img/Pub Porticcio MArs 2025/Coucher de soleil.jpeg",
-      alt: language === "fr" ? "Coucher de soleil" : "Sunset",
-      category: language === "fr" ? "Vues" : "Views",
-      description: language === "fr" ? "Magnifique coucher de soleil sur le golfe d'Ajaccio" : "Beautiful sunset over the Gulf of Ajaccio"
-    },
-    {
       src: "/img/Pub Porticcio MArs 2025/Vue facade maison.jpeg",
       alt: language === "fr" ? "Façade" : "Facade",
       category: language === "fr" ? "Extérieur" : "Outdoor",
       description: language === "fr" ? "Vue de la façade de la maison" : "House facade view"
+    },
+    {
+      src: "/img/chambre_etage3.png",
+      alt: language === "fr" ? "Chambre avec tableau" : "Bedroom with painting",
+      category: language === "fr" ? "Chambres" : "Bedrooms",
+      description: language === "fr" ? "Chambre avec tête de lit en bois et tableau artistique" : "Bedroom with wooden headboard and artistic painting"
+    },
+    {
+      src: "/img/jardin_vue2.png",
+      alt: language === "fr" ? "Jardin vue mer" : "Garden sea view",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Jardin méditerranéen fleuri avec vue sur la mer" : "Flowering Mediterranean garden with sea view"
+    },
+    {
+      src: "/img/jacuzzi2.png",
+      alt: language === "fr" ? "Jacuzzi extérieur" : "Outdoor jacuzzi",
+      category: language === "fr" ? "Extérieur" : "Outdoor",
+      description: language === "fr" ? "Jacuzzi entouré de végétation méditerranéenne" : "Jacuzzi surrounded by Mediterranean vegetation"
+    },
+    {
+      src: "/img/terrasse_vue2.png",
+      alt: language === "fr" ? "Vue mer depuis la terrasse" : "Sea view from terrace",
+      category: language === "fr" ? "Vues" : "Views",
+      description: language === "fr" ? "Vue panoramique sur le golfe depuis la terrasse à l'étage" : "Panoramic view over the gulf from the upstairs terrace"
     },
   ];
 

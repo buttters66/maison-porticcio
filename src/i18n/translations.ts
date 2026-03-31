@@ -80,7 +80,7 @@ export const translations = {
     deposit: "Acompte (30%)",
     bookNow: "Réserver maintenant",
     available: "Disponible",
-    reserved: "Réservé",
+    reserved: "Indisponible",
     selected: "Sélectionné",
     saturdayOnly: "Samedi uniquement",
     
@@ -183,7 +183,7 @@ export const translations = {
     deposit: "Deposit (30%)",
     bookNow: "Book Now",
     available: "Available",
-    reserved: "Reserved",
+    reserved: "Unavailable",
     selected: "Selected",
     saturdayOnly: "Saturday only",
     
